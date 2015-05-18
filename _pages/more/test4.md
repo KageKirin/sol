@@ -1,20 +1,36 @@
 ---
 template: base.html
-title: "Olympics"
+title: "Test"
 date: 2012-08-14 15:14
-comments: true
-categories: ["japan"]
+backbutton: true
 ---
 
-So, the Olympic Games of London are over:
-It was kinda hard to follow such an event,
-especially when it was happening in a complete different timezone (9 hours later than Japan, in fact).
+# Subfolders
 
-The Japanese coverage focussed on, obviously, Japanese olympians, but totally eclipsed all the other participating countries. The media deemed it not worthy to lose a single word on other medallists when they were not Japanese, nor did the media cover any sports where Japanese sportives did not take in, or where eliminated from.  
-Hence, the more interesting sports like Canoeing and Kayaking, Rowing, Beach Volleyball, Taekwondo, and a lot more were not even shown on (public) TV.  
+## are working
 
-As a comparison, TV media in Germany is showing the whole event, unrelated to the sportives' nation. (Especially when following the event on Eurosport).
+## pretty good
 
-So, I'm more than just pissed on these nationalistic media coverage of a major international sports event.
+### don't you think?
 
-Next time, I'm gonna stream the events through a european proxy.
+normal text
+more text  
+even more text  
+
+new paragraph  
+don't forget the double ' ' space at the end of the line  
+else
+you
+can
+write
+one
+word
+line
+and
+it
+still
+ends
+up
+as
+one
+paragraph.

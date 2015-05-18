@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+
+<!-- CONTENT FRAME -->
+<div class="frameTop">
+    &nbsp;<br />
+</div>
+
+<div class="content">
+    <!-- START CONTENTS -->
+    <div class="mm-banner"><img src={{config.banner}} />
+    <h1 class="title">{{config.title}}</h1><br>
+    <h2 class="date">【期間】{{config.duration}}</h2><br>
+
+    <!-- SET BANNER -->
+    <div class="indent">
+        <p class="desc" style="display:block;">
+            {{ super() }}
+        </p>
+
+    </div>
+</div>
+<!-- END CONTENTS -->
+
+<!-- END CONTENT FRAME -->
+<div class="frameBtm" id="detail">
+    &nbsp;<br />
+</div><br>
+
+{% endblock %}

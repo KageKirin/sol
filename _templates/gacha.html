@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+<section id="main-container">
+	<section id="main-wrapper">
+		<img class={{config.banner_type}} src={{config.banner}} alt="" title="" />
+
+        {% if config.features %}
+        <div class="box">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+                    {% for item in config.features -%}
+					<div class="swiper-slide">
+                        <img src={{item.banner}} alt="" title="" />
+						<div class="details">
+							<span class="name">{{item.name}}</span><br/>
+							<span class="stars">{{item.stars}}</span><br/>
+							<span class="element">属性：{{item.element}}</span>
+						</div>
+					</div>
+                    {% endfor -%}
+				</div>
+			</div>
+		</div>
+        {% endif %}
+
+        <div class="frameTop">
+            &nbsp;<br />
+        </div>
+        <div id="content" class="content">
+            {{ super() }}
+
+
+
+            {% if config.prizes %}
+            <table class="list">
+                <tr>
+                    <th>ユニット名</th>
+                    <th>レアリティ</th>
+                    <th>属性</th>
+                </tr>
+                {% for item in config.prizes -%}
+                <tr>
+                    {% for c in item -%}
+                    <td>{{c}}</td>
+                    {%- endfor %}
+                </tr>
+                {%- endfor %}
+            </table>
+            {% endif %}
+
+        </div>
+
+        <div class="frameBtm" id="detail">
+        </div><br>
+    </section>
+</section>
+
+{% endblock %}

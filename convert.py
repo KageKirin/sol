@@ -3,6 +3,7 @@
 import os
 import os.path
 import sys
+import codecs
 import yaml
 import json
 import string
@@ -12,6 +13,7 @@ import mistune
 import jinja2
 from glob import glob
 from md2json import md2dict, md2json
+from distutils.dir_util import mkpath
 
 #os.getcwd()
 config_pages_dir = '_pages'
@@ -19,6 +21,9 @@ config_page_ext = '.md'
 
 config_templates_dir = '_templates'
 config_template_ext = '.html'
+
+config_build_dir = '_build'
+config_build_ext = '.html'
 
 templateLoader = jinja2.FileSystemLoader(searchpath=config_templates_dir)
 templateEnv = jinja2.Environment(loader=templateLoader)
@@ -45,21 +50,29 @@ def convert_page_dict(pagedict):
 		config = pagedict["config"]
 		htmlContent = markdown.markdown(pagedict["content"], ['gfm'])
 		if config.has_key("template"):
-			print config["template"]
+			#print config["template"]
 			tpl = templateEnv.get_template(config["template"])
 			if tpl:
 				pagedict["htmlContent"] = htmlContent
 				htmlPage = tpl.render(pagedict)
-				print htmlPage
+				#print htmlPage
 	return htmlPage
 
 
 def convert_page(page):
 	d = dict()
-	with open(page, 'r') as f:
-			text = f.read()
-			d = md2dict(text)
-			convert_page_dict(d)
+	target = page.replace(config_pages_dir, config_build_dir).replace(config_page_ext, config_build_ext)
+	htmlPage = ""
+	with codecs.open(page, 'r', 'utf8') as f:
+		text = f.read()
+		d = md2dict(text)
+		htmlPage = convert_page_dict(d)
+	mkpath(os.path.dirname(target))
+	with codecs.open (target, 'wb', 'utf8') as ff:
+		ff.write(htmlPage)
+
+
+
 
 
 def convert_pages(pages):
@@ -69,8 +82,5 @@ def convert_pages(pages):
 
 if __name__ == '__main__':
 	pages = load_pages()
-	#templates = load_templates()	
+	#templates = load_templates()
 	convert_pages(pages)
-	
-
-	

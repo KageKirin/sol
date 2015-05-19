@@ -27,6 +27,6 @@ The resulting HTML pages will go into `_build`, keeping the filename of their or
 `mltiyaml2json.py file.yml` takes a multidocument YAML file and writes the equivalent JSON containing each document as JSON string.  
 `md2json.py file.md` takes a Markdown file with YAML front matter and writes the equivalent JSON to stdout, keeping the Markdown as port of the JSON.  
 
-`mistune_test.py`is a short Mistune Markdown renderer test.
-`markdown_test.py`is a short Markdown-gfm renderer test.
-`jinja_test.py`is a short Jinja2 test.
+`mistune_test.py`is a short Mistune Markdown renderer test.  
+`markdown_test.py`is a short Markdown-gfm renderer test.  
+`jinja_test.py`is a short Jinja2 test.  

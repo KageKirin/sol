@@ -1,7 +1,7 @@
 #!/bin/python
 import os
 import os.path
-import markdown
+import mistune
 
 if __name__ == '__main__':
 	root = os.path.dirname(__file__)
@@ -10,6 +10,6 @@ if __name__ == '__main__':
 	)
 	with open(filepath, 'r') as f:
 		text = f.read()
-	
+
 	d = mistune.markdown(text)
 	print d

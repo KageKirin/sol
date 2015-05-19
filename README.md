@@ -16,9 +16,9 @@ Written for Python 2.x
 
 At the moment `convert.py` will do everything.
 
-Markdown pages go into `_pages`.  
-Jinja2 templates go into `_templates`.  
-The resulting HTML pages will go into `_build`, keeping the filename of their originating markdown file.
+Markdown pages go into `_pages`, with extension `.md`.  
+Jinja2 templates go into `_templates`, with extension `.html`.  
+The resulting HTML pages will go into `_build`, keeping the filename of their originating markdown file, with extension `.html`.
 
 ## Extras
 

@@ -48,7 +48,8 @@ def convert_page_dict(pagedict):
 	htmlPage = ""
 	if pagedict["config"] and pagedict["content"]:
 		config = pagedict["config"]
-		htmlContent = markdown.markdown(pagedict["content"], ['gfm'])
+		#htmlContent = markdown.markdown(pagedict["content"], ['gfm'])	## works fine in normal python, but creates issues when creating exe via [py2exe, pyinstall, cx_Freeze]
+		htmlContent = mistune.markdown(pagedict["content"])
 		if config.has_key("template"):
 			#print config["template"]
 			tpl = templateEnv.get_template(config["template"])

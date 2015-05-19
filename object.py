@@ -15,15 +15,25 @@ from glob import glob
 from md2json import md2dict, md2json
 from distutils.dir_util import mkpath
 
-#os.getcwd()
+
+config_index_file = 'index.yml'
+
 config_pages_dir = '_pages'
 config_page_ext = '.md'
 
 config_build_dir = '_build'
 config_build_ext = 'db.json'
 
-templateLoader = jinja2.FileSystemLoader(searchpath=config_templates_dir)
-templateEnv = jinja2.Environment(loader=templateLoader)
+index_data = dict()
+
+
+
+def load_config(filename):
+	data = dict()
+	with codecs.open(filename, 'r', 'utf8') as f:
+		text = f.read()
+		data = yaml.load(text)
+	return data
 
 
 def load_from_dir(folder, extension):
@@ -33,12 +43,20 @@ def load_from_dir(folder, extension):
 			matches.append(os.path.join(root, filename))
 	return matches
 
-def load_pages():
+
+def get_available_pages():
 	return load_from_dir(folder=config_pages_dir, extension=config_page_ext)
 
-
-def load_templates():
-	return load_from_dir(folder=config_templates_dir, extension=config_template_ext)
+def load_pages():
+	avail_pages = get_available_pages()
+	index_pages = []
+	for lv in index_data["content"]:
+		if os.path.splitext(lv) \
+		and os.path.splitext(lv).equals(config_page_ext) \
+		and os.path.exists(lv) \
+		and avail_pages.find(lv):
+			index_pages.append(lv)
+	return index_pages
 
 
 def convert_page_dict(pagedict):
@@ -78,6 +96,8 @@ def convert_pages(pages):
 
 
 if __name__ == '__main__':
+	index_data = load_config(config_index_file)
+	print index_data
 	pages = load_pages()
 	#templates = load_templates()
 	convert_pages(pages)

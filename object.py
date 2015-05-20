@@ -47,31 +47,53 @@ def load_from_dir(folder, extension):
 def get_available_pages():
 	return load_from_dir(folder=config_pages_dir, extension=config_page_ext)
 
-def load_pages():
-	avail_pages = get_available_pages()
-	index_pages = []
-	for lv in index_data["content"]:
-		if os.path.splitext(lv) \
-		and os.path.splitext(lv).equals(config_page_ext) \
-		and os.path.exists(lv) \
-		and avail_pages.find(lv):
-			index_pages.append(lv)
-	return index_pages
+
+def load_page_item(item, path):
+	print "load_page_item", item
+	if type(item) is dict:
+		return load_page_dict(item, path)
+	elif type(item) is list:
+		return load_page_list(item, path)
+	else:
+		return load_page(item, path)
+
+def load_page_dict(data, path):
+	cv_data = dict()
+	for k in data.keys():
+		cv_data[k] = load_page_item(data[k], path)
+	return cv_data
+
+def load_page_list(data, path):
+	cv_data = []
+	for item in data:
+		if item:
+			cv_data.append(load_page_item(item, path))
+	return cv_data
+
+
+def load_page(page, path):
+	if page:
+		print "str", page
+		page_path = os.path.join(config_pages_dir, page)
+		if os.path.exists(page_path):
+			return load_page_contents(page_path)
+
+def load_pages(data):
+	return load_page_item(data, path="")
+
+
+def load_page_contents(page_path):
+	print page_path
+	with codecs.open(page_path, 'r', 'utf8') as f:
+		text = f.read()
+		d = md2dict(text)
+		return convert_page_dict(d)
 
 
 def convert_page_dict(pagedict):
 	htmlPage = ""
 	if pagedict["config"] and pagedict["content"]:
-		config = pagedict["config"]
-		htmlContent = markdown.markdown(pagedict["content"], ['gfm'])
-		if config.has_key("template"):
-			#print config["template"]
-			tpl = templateEnv.get_template(config["template"])
-			if tpl:
-				pagedict["htmlContent"] = htmlContent
-				htmlPage = tpl.render(pagedict)
-				#print htmlPage
-	return htmlPage
+		return pagedict
 
 
 def convert_page(page):
@@ -96,8 +118,15 @@ def convert_pages(pages):
 
 
 if __name__ == '__main__':
+	print "available pages", get_available_pages()
 	index_data = load_config(config_index_file)
-	print index_data
-	pages = load_pages()
-	#templates = load_templates()
-	convert_pages(pages)
+	print index_data["content"]
+
+	pages = load_pages(index_data["content"])
+	print pages
+
+	converted = json.dumps(pages, sort_keys=True, indent=4, separators=(',', ': '))
+	mkpath(os.path.dirname(config_build_dir))
+	target = os.path.join(config_build_dir, config_build_ext)
+	with codecs.open (target, 'w', 'utf8') as ff:
+		ff.write(converted)

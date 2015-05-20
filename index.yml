@@ -6,9 +6,8 @@ content:
         - gacha_test.md
         - markdown_test.md
     - test:
-        - test.md
         - test2.md
         - test3.md
         - subsection:
             - more/test4.md
-    - empty_section
+    - empty_section:

@@ -58,16 +58,20 @@ def load_page_item(item, path):
 		return load_page(item, path)
 
 def load_page_dict(data, path):
-	cv_data = dict()
+	cv_data = []
 	for k in data.keys():
-		cv_data[k] = load_page_item(data[k], path)
+		item = load_page_item(data[k], os.path.join(path, k))
+		if item:
+			cv_data += item
 	return cv_data
 
 def load_page_list(data, path):
 	cv_data = []
 	for item in data:
 		if item:
-			cv_data.append(load_page_item(item, path))
+			doc = load_page_item(item, path)
+			if doc:
+				cv_data += doc
 	return cv_data
 
 
@@ -76,7 +80,10 @@ def load_page(page, path):
 		print "str", page
 		page_path = os.path.join(config_pages_dir, page)
 		if os.path.exists(page_path):
-			return load_page_contents(page_path)
+			doc = load_page_contents(page_path)
+			docpath = os.path.join(path, codecs.encode(doc["config"]["title"], "utf-8"))
+			print "path", docpath, page
+			return docpath, doc
 
 def load_pages(data):
 	return load_page_item(data, path="")

@@ -49,7 +49,7 @@ def get_available_pages():
 
 
 def load_page_item(item, path):
-	print "load_page_item", item
+	#print "load_page_item", item
 	if type(item) is dict:
 		return load_page_dict(item, path)
 	elif type(item) is list:
@@ -77,12 +77,12 @@ def load_page_list(data, path):
 
 def load_page(page, path):
 	if page:
-		print "str", page
+		#print "str", page
 		page_path = os.path.join(config_pages_dir, page)
 		if os.path.exists(page_path):
 			doc = load_page_contents(page_path)
 			docpath = os.path.join(path, codecs.encode(doc["config"]["title"], "utf-8"))
-			print "path", docpath, page
+			#print "path", docpath, page
 			return docpath, doc
 
 def load_pages(data):
@@ -90,7 +90,7 @@ def load_pages(data):
 
 
 def load_page_contents(page_path):
-	print page_path
+	#print page_path
 	with codecs.open(page_path, 'r', 'utf8') as f:
 		text = f.read()
 		d = md2dict(text)
@@ -127,12 +127,13 @@ def convert_pages(pages):
 if __name__ == '__main__':
 	print "available pages", get_available_pages()
 	index_data = load_config(config_index_file)
-	print index_data["content"]
+	#print index_data["content"]
 
-	pages = load_pages(index_data["content"])
-	print pages
+	db = dict()
+	db["pages"] = load_pages(index_data["content"])
+	#print db
 
-	converted = json.dumps(pages, sort_keys=True, indent=4, separators=(',', ': '))
+	converted = json.dumps(db, sort_keys=True, indent=4, separators=(',', ': '))
 	mkpath(os.path.dirname(config_build_dir))
 	target = os.path.join(config_build_dir, config_build_ext)
 	with codecs.open (target, 'w', 'utf8') as ff:

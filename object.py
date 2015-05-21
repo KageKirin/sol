@@ -11,6 +11,7 @@ import fnmatch
 import markdown
 import mistune
 import jinja2
+from bson import json_util
 from glob import glob
 from md2json import md2dict, md2json
 from distutils.dir_util import mkpath
@@ -133,7 +134,7 @@ if __name__ == '__main__':
 	db["pages"] = load_pages(index_data["content"])
 	#print db
 
-	converted = json.dumps(db, sort_keys=True, indent=4, separators=(',', ': '), default=str)
+	converted = json.dumps(db, sort_keys=True, indent=4, separators=(',', ': '), default=json_util.default)
 	mkpath(os.path.dirname(config_build_dir))
 	target = os.path.join(config_build_dir, config_build_ext)
 	with codecs.open (target, 'w', 'utf8') as ff:

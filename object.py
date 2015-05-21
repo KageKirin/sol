@@ -133,7 +133,7 @@ if __name__ == '__main__':
 	db["pages"] = load_pages(index_data["content"])
 	#print db
 
-	converted = json.dumps(db, sort_keys=True, indent=4, separators=(',', ': '))
+	converted = json.dumps(db, sort_keys=True, indent=4, separators=(',', ': '), default=str)
 	mkpath(os.path.dirname(config_build_dir))
 	target = os.path.join(config_build_dir, config_build_ext)
 	with codecs.open (target, 'w', 'utf8') as ff:

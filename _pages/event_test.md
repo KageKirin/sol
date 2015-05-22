@@ -1,7 +1,7 @@
 ---
 template: event.html
 title: 龍を倒して最強を目指せ！
-date: 2012-08-14 15:14
+date: "2012-08-14 15:14"
 
 banner: "images/raid/sembanner_map_raid00.png"
 duration: "5月13日～5月20日"

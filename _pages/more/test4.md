@@ -1,7 +1,7 @@
 ---
 template: base.html
 title: "Test"
-date: 2012-08-14 15:14
+date: "2012-08-14 15:14"
 backbutton: true
 ---
 

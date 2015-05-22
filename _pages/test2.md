@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Olympics"
-date: 2012-08-14 15:14
+date: "2012-08-14 15:14"
 comments: true
 categories: ["japan"]
 ---

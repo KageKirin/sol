@@ -1,7 +1,7 @@
 ---
 template: gacha.html
 title: "Gacha"
-date: 2012-08-14 15:14
+date: "2012-08-14 15:14"
 
 banner: images/page_template/banner_free.png
 banner_type: "banner free"

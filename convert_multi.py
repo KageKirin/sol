@@ -12,7 +12,7 @@ import markdown
 import mistune
 import jinja2
 from glob import glob
-from md2json import md2dict, md2json
+from md2json import md2dict, md2json, multimd2dict
 from distutils.dir_util import mkpath
 
 #os.getcwd()
@@ -49,7 +49,9 @@ def convert_page_dict(pagedict):
 	if pagedict["config"] and pagedict["content"]:
 		config = pagedict["config"]
 		#htmlContent = markdown.markdown(pagedict["content"], ['gfm'])	## works fine in normal python, but creates issues when creating exe via [py2exe, pyinstall, cx_Freeze]
-		htmlContent = mistune.markdown(pagedict["content"])
+		htmlContent = []
+		for md in pagedict["content"]:
+			htmlContent.append(mistune.markdown(md))
 		if config.has_key("template"):
 			#print config["template"]
 			tpl = templateEnv.get_template(config["template"])
